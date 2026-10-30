@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Marketing Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilos.css">
+<script src="scorm_api.js"></script>
+</head>
+<body>
+<header class="top"><strong>OVA · Marketing Digital</strong><nav id="nav" aria-label="Módulos"></nav></header>
+<main>
+<section class="panel" data-t="Inicio">
+<p class="eyebrow">Objeto Virtual de Aprendizaje</p>
+<h1>Marketing Digital</h1>
+<p class="muted" style="max-width:640px;font-size:20px">Te damos la bienvenida. En este recorrido de cuatro módulos aprenderás las bases del marketing digital y las pondrás a prueba en una evaluación final.</p>
+<div class="cards"><div class="author"><strong>Jhan Nicolas Mendez Camacho</strong><p>Experto temático</p></div><div class="author"><strong>Raúl Rodríguez Ibáñez</strong><p>Diseñador Instruccional</p></div></div>
+</section>
+
+<section class="panel" data-t="Bienvenida">
+<p class="eyebrow">Bienvenida</p><h1>Antes de empezar</h1>
+<p class="muted">Mira el video de bienvenida y escucha el podcast para conocer de qué trata este recorrido.</p>
+<div class="media">
+<div class="card"><h2>Video de bienvenida</h2><div class="video"><iframe src="https://www.youtube.com/embed/46TX3OTMunQ" title="Video de bienvenida" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
+<div class="card"><h2>Podcast · Onda Multimedia</h2><p class="muted">Escúchalo antes de iniciar el módulo 1.1.</p><audio controls preload="metadata" src="media/OndaMultimedia.mp3">Tu navegador no admite audio.</audio></div>
+</div>
+</section>
+
+<section class="panel" data-t="1.1 Las 4Ps">
+<p class="eyebrow">Módulo 1.1</p><h1>Las 4Ps del Marketing (Marketing Mix)</h1>
+<p class="muted">Cuatro decisiones que, combinadas, definen cómo una oferta llega al mercado.</p>
+<div class="cards" id="c4p"></div><div id="a1"></div>
+</section>
+
+<section class="panel" data-t="1.2 Buyer Persona">
+<p class="eyebrow">Módulo 1.2</p><h1>Necesidades, deseos y el Buyer Persona</h1>
+<div class="cards" id="cnd"></div>
+<p class="muted">Definir al buyer persona permite alinear mensajes y canales con quien realmente compra.</p>
+<div id="a2"></div>
+<div class="act" id="persona"><p class="eyebrow warm">Actividad</p><h2>Construye tu Buyer Persona</h2><p class="muted">Define al cliente ideal de un emprendimiento que tú elijas.</p>
+<div class="fields"><div><label for="p1">Nombre y edad</label><input id="p1" type="text"></div><div><label for="p2">Ocupación</label><input id="p2" type="text"></div><div><label for="p3">Objetivo principal</label><input id="p3" type="text"></div><div><label for="p4">Mayor dolor o problema</label><input id="p4" type="text"></div><div><label for="p5">Canales digitales que usa</label><input id="p5" type="text"></div></div>
+<button class="btn" onclick="savePersona()">Guardar persona</button><p class="fb" id="personaFb" aria-live="polite"></p></div>
+</section>
+
+<section class="panel" data-t="1.3 Embudo">
+<p class="eyebrow">Módulo 1.3</p><h1>El embudo de ventas</h1>
+<p class="muted">El recorrido del cliente (Customer Journey) se organiza en tres etapas.</p>
+<div style="display:flex;flex-direction:column;gap:12px">
+<div class="stage s1"><strong style="font-size:22px">TOFU · Atracción</strong><p>El usuario descubre la marca: blogs, redes, SEO y publicidad.</p></div>
+<div class="stage s2"><strong style="font-size:22px">MOFU · Consideración</strong><p>Compara opciones: ebooks, webinars, casos y correos.</p></div>
+<div class="stage s3"><strong style="font-size:22px">BOFU · Conversión</strong><p>Decide comprar: demos, ofertas y llamadas a la acción.</p></div></div>
+<div id="a3"></div>
+</section>
+
+<section class="panel" data-t="1.4 Evaluación">
+<p class="eyebrow">Módulo 1.4 · 5 preguntas de selección múltiple</p><h1>Evaluación y aplicación práctica</h1>
+<p class="muted">Elige una respuesta por pregunta. Tu calificación se enviará al LMS al terminar.</p>
+<div id="quiz"></div>
+</section>
+</main>
+
+<script>
+var $=function(s){return document.querySelector(s)};
+var panels=[].slice.call(document.querySelectorAll('.panel')),cur=0;
+function card(a){return '<div class="card"><h3>'+a[0]+'</h3><p>'+a[1]+'</p></div>'}
+$('#c4p').innerHTML=[['Producto','Lo que ofreces: bien o servicio, sus atributos, marca y el problema que resuelve.'],['Precio','Lo que el cliente paga: estrategia de precios, descuentos y valor percibido.'],['Plaza','Dónde y cómo se accede: canales físicos y digitales, distribución y logística.'],['Promoción','Cómo lo das a conocer: publicidad, redes sociales, contenido y relaciones públicas.']].map(card).join('');
+$('#cnd').innerHTML=[['Necesidad','Carencia básica que se busca satisfacer. Ejemplo: comunicarse a distancia.'],['Deseo','La forma específica en que se quiere satisfacer, influida por cultura y gustos. Ejemplo: un teléfono de cierta marca.'],['Buyer Persona','Representación semi-ficticia del cliente ideal: datos demográficos, objetivos, dolores, hábitos digitales y canales que usa.']].map(card).join('');
+
+function act(id,t,d,type,opts,items,quiz){
+  var h='<div class="act'+(quiz?' quiz':'')+'" id="q'+id+'">'+(quiz?'':'<p class="eyebrow warm">Actividad</p><h2>'+t+'</h2><p class="muted">'+d+'</p>');
+  items.forEach(function(it,i){
+    var o=it[3]||opts,n=id+i,c;
+    c=type==='sel'?'<select aria-label="'+it[0]+'"><option value="">Elige…</option>'+o.map(function(x){return '<option>'+x+'</option>'}).join('')+'</select>'
+      :'<span>'+o.map(function(x){return '<label><input type="radio" name="'+n+'" value="'+x+'"> '+x+'</label>'}).join('')+'</span>';
+    h+='<div class="item" data-ans="'+it[1]+'" data-fb="'+it[2]+'"><div class="row"><span class="q">'+(quiz?(i+1)+'. ':'')+it[0]+'</span>'+c+'</div><p class="fb" aria-live="polite"></p></div>';
+  });
+  h+=quiz?'<button class="btn" onclick="sendQuiz()">Enviar respuestas</button>':'<button class="btn" onclick="check(\'q'+id+'\')">Verificar respuestas</button>';
+  return h+'<p class="sum" aria-live="polite"></p></div>';
+}
+function check(id){
+  var a=document.getElementById(id),ok=0,its=a.querySelectorAll('.item');
+  its.forEach(function(it){
+    var s=it.querySelector('select'),r=it.querySelector('input:checked'),v=s?s.value:(r?r.value:''),good=v===it.dataset.ans;
+    if(good)ok++;
+    it.className='item '+(v===''?'':good?'ok':'bad');
+    it.querySelector('.fb').textContent=v===''?'Elige una respuesta antes de verificar.':(good?'¡Correcto! ':'Incorrecto. ')+it.dataset.fb;
+  });
+  a.querySelector('.sum').textContent='Aciertos: '+ok+' de '+its.length;
+  return ok;
+}
+var P4=['Producto','Precio','Plaza','Promoción'],FN=['TOFU','MOFU','BOFU'];
+$('#a1').innerHTML=act(1,'Clasifica cada acción en su P','Relaciona cada ejemplo con la P del Marketing Mix que representa.','sel',P4,[
+['Descuento por Black Friday','Precio','Modifica lo que paga el cliente: es una decisión de Precio.'],
+['Venta en tienda en línea y marketplace','Plaza','Define dónde y cómo el cliente accede a la oferta: es Plaza.'],
+['Campaña de anuncios en Instagram','Promoción','Comunica y da a conocer la oferta: es Promoción.'],
+['Nueva app con funciones mejoradas','Producto','Es la oferta misma y sus atributos: es Producto.']]);
+$('#a2').innerHTML=act(2,'¿Necesidad o deseo?','Marca la opción correcta para cada enunciado.','radio',['Necesidad','Deseo'],[
+['Tener agua potable','Necesidad','Es una carencia básica, sin la cual no se puede vivir bien.'],
+['Beber una gaseosa de marca específica','Deseo','Es una forma concreta de satisfacer la sed, influida por gustos y marca.'],
+['Contar con acceso a internet para estudiar','Necesidad','Hoy es un medio básico para acceder a la educación.']]);
+$('#a3').innerHTML=act(3,'Asigna cada acción a su etapa','Indica en qué etapa del embudo se ubica cada acción de marketing.','sel',FN,[
+['Publicar un artículo de blog optimizado con SEO','TOFU','Atrae a personas que aún no conocen la marca.'],
+['Enviar un ebook comparativo por correo','MOFU','Ayuda al usuario a comparar opciones: es Consideración.'],
+['Ofrecer una demo gratuita con descuento por tiempo limitado','BOFU','Empuja la decisión de compra: es Conversión.'],
+['Anuncio en redes para llegar a nuevas audiencias','TOFU','Busca atraer a quien aún no conoce la marca.']]);
+$('#quiz').innerHTML=act(4,'','','radio',null,[
+['¿Qué etapa del embudo busca atraer usuarios que aún no conocen la marca?','TOFU','TOFU es la etapa de atracción.',['TOFU','MOFU','BOFU','Plaza']],
+['¿Cuál de las 4Ps representa lo que el cliente paga por la oferta?','Precio','El Precio es lo que el cliente paga y su valor percibido.',P4],
+['Una persona necesita comunicarse a distancia y quiere un teléfono de una marca específica. ¿Qué es la marca específica?','Un deseo','La necesidad es comunicarse; la marca concreta es un deseo.',['Una necesidad','Un deseo','Un buyer persona','Un canal de venta']],
+['¿Qué es un Buyer Persona?','Una representación semi-ficticia del cliente ideal','No es un cliente real: es un perfil semi-ficticio basado en datos.',['Un cliente real con nombre y apellido','Una representación semi-ficticia del cliente ideal','Una estrategia de precios','Un canal de distribución']],
+['Un usuario compara opciones leyendo un ebook y asistiendo a un webinar. ¿En qué etapa está?','MOFU','Comparar opciones corresponde a la etapa de Consideración.',['TOFU','MOFU','BOFU','Promoción']]],true);
+function sendQuiz(){
+  var a=$('#q4');
+  if(a.querySelectorAll('input:checked').length<5){a.querySelector('.sum').textContent='Responde las 5 preguntas antes de enviar.';return}
+  var ok=check('q4'),nota=enviarCalificacion(ok,5);
+  a.querySelector('.sum').textContent='Aciertos: '+ok+' de 5 · Calificación: '+nota+'/100 · '+(nota>=70?'¡Aprobado!':'Repasa los módulos e inténtalo de nuevo.');
+}
+function savePersona(){
+  var ok=[].slice.call(document.querySelectorAll('#persona input')).every(function(i){return i.value.trim()});
+  $('#personaFb').textContent=ok?'¡Muy bien! Verifica que el dolor sea concreto y que el canal digital sea donde realmente está tu cliente.':'Completa los cinco campos para definir a tu buyer persona.';
+}
+function go(i){
+  cur=i;
+  panels.forEach(function(p,k){p.classList.toggle('active',k===i)});
+  [].forEach.call($('#nav').children,function(b,k){b.setAttribute('aria-current',k===i)});
+  window.scrollTo(0,0);
+}
+panels.forEach(function(p,i){
+  var b=document.createElement('button');b.textContent=p.dataset.t;b.onclick=function(){go(i)};$('#nav').appendChild(b);
+  var f='<div class="foot">'+(i>0?'<button class="btn alt" onclick="go('+(i-1)+')">Anterior</button>':'<span></span>')+(i<panels.length-1?'<button class="btn" onclick="go('+(i+1)+')">Siguiente</button>':'')+'</div>';
+  p.insertAdjacentHTML('beforeend',f);
+});
+go(0);
+</script>
+</body>
+</html>
